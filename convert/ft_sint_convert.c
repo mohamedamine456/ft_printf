@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_sint_convert.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 20:55:25 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/19 20:46:05 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/11/19 12:48:09 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/11/20 22:15:47 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "convert.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_sint_convert(char *str, int nb)
 {
-	int		len;
-	int		i;
-	char	*str;
+	char	*s;
+	long nbs;
 
-	len = ft_strlen((char *)s1);
-	i = 0;
-	str = 0;
-	str = (char *)malloc(len * sizeof(char) + 1);
-	if (str == 0)
-		return (0);
-	while (i < len)
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	nbs = nb;
+	s = ft_itoa(nbs);
+	return (s);
 }

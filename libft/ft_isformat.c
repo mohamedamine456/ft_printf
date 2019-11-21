@@ -6,15 +6,15 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:29:55 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/17 17:43:25 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/18 22:10:15 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isformat(int c)
+char	ft_isformat(char c)
 {
 	if (c == 'c' || c == 'd' || c == 'p'
 			|| c == 's' || c == 'i' || c == 'u'
 			|| c == 'x' || c == 'X')
-		return (1);
+		return (c);
 	return (0);
 }

@@ -6,34 +6,51 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:46:37 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/17 21:29:33 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:15:33 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_printf(const char *str, ...)
+int		ft_printf_helper(const char *str, va_list *param, char **all);
+
+int		ft_printf(const char *str, ...)
 {
 	va_list param;
-	int		i;
 	char	*s;
 	char	*all;
 	char	*tmp;
+	char	conv;
 
 	va_start(param, str);
-	i = 0;
 	all = ft_strdup("");
-	while (str[i])
-	{
-		if (str[i] == '%')
-			if (ft_isconvertion(&str[i + 1]))
-			{
-				tmp = s;
-				s = ft_convert(&str[i]);
-				free(tmp);
-				all = ft_strjoin(all, s);
-			}
-		i++;
-	}
+	ft_printf_helper(str, &param, &all);
+	va_end(param);
+	ft_putstr(all);
 	return (ft_strlen(all));
+}
+
+int		ft_printf_helper(const char *str, va_list *param, char **all)
+{
+	char	*s;
+	char	*tmp;
+	char	conv;
+
+	while (*str)
+	{
+		/*if (*str == '%' && *(str + 1) == '%')
+			str++;*/
+		if (*str == '%' && (conv = ft_isconvertion(str + 1)))
+		{
+			tmp = s;
+			s = ft_convert(&str, param, conv);
+			tmp = *all;
+			*all = ft_strjoin(*all, s);
+			free(tmp);
+		}
+		else
+			*all = ft_addchar(*all, *str);
+		str++;
+	}
+	return (ft_strlen(*all));
 }

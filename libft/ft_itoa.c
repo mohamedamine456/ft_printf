@@ -1,34 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 20:55:25 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/19 20:46:05 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/11/18 15:31:47 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/11/20 21:20:54 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	check_sign(char *n_str, int *i, long long *nn)
 {
-	int		len;
-	int		i;
-	char	*str;
-
-	len = ft_strlen((char *)s1);
-	i = 0;
-	str = 0;
-	str = (char *)malloc(len * sizeof(char) + 1);
-	if (str == 0)
-		return (0);
-	while (i < len)
+	if (*nn < 0)
 	{
-		str[i] = s1[i];
+		*nn *= -1;
+		n_str[*i] = '-';
+		*i = *i + 1;
+	}
+}
+
+char	*ft_itoa(long long nn)
+{
+	char	*n_str;
+	int		i;
+
+	i = 0;
+	n_str = (char *)malloc(ft_nsize(nn) + 1);
+	if (n_str == 0)
+		return (0);
+	if (nn < 0)
+		check_sign(n_str, &i, &nn);
+	while (nn > 9)
+	{
+		n_str[i] = (nn % 10) + 48;
+		nn /= 10;
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	n_str[i] = nn + 48;
+	n_str[i + 1] = '\0';
+	if (n_str[0] == '-')
+		ft_strrev(n_str + 1);
+	else
+		ft_strrev(n_str);
+	return (n_str);
 }

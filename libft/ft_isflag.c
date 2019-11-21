@@ -6,16 +6,16 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:20:28 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/17 17:43:15 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/18 22:12:42 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isflag(int	c)
+int	ft_isflag(int c)
 {
 	if (c == '-' || c == '+' || c == ' ' || c == '.'
 			|| c == '*' || c == '#' || c == '\'')
 		return (1);
 	return (0);
-}	
+}
