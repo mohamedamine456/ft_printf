@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:46:37 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/21 18:15:33 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/22 20:58:26 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		ft_printf_helper(const char *str, va_list *param, char **all);
 int		ft_printf(const char *str, ...)
 {
 	va_list param;
-	char	*s;
 	char	*all;
 	char	*tmp;
 	char	conv;
@@ -38,8 +37,6 @@ int		ft_printf_helper(const char *str, va_list *param, char **all)
 
 	while (*str)
 	{
-		/*if (*str == '%' && *(str + 1) == '%')
-			str++;*/
 		if (*str == '%' && (conv = ft_isconvertion(str + 1)))
 		{
 			tmp = s;
@@ -49,7 +46,11 @@ int		ft_printf_helper(const char *str, va_list *param, char **all)
 			free(tmp);
 		}
 		else
+		{
+			if (*str == '%' && *(str + 1) == '%')
+				str++;
 			*all = ft_addchar(*all, *str);
+		}
 		str++;
 	}
 	return (ft_strlen(*all));

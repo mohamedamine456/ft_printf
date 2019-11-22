@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   flags_trait.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 11:02:21 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/21 22:40:42 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/11/22 22:59:46 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/11/22 23:04:17 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdlib.h>
-# include "libft/libft.h"
-# include "convert/convert.h"
+#include "convert.h"
 
-int		ft_printf(const char *str, ...);
-char	ft_isconvertion(const char *str);
-char	*ft_convert(const char **str, va_list *param, char conv);
+char	*apply_flags(char *s, t_flags flag)
+{
+	char	*str;
 
-#endif
+
+}
