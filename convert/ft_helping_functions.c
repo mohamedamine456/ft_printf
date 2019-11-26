@@ -6,15 +6,14 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:27:52 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/22 22:26:06 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:52:22 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "convert.h"
 #include <stdio.h>
 
-char	ft_to_char(int n, char conv)
+char	ft_to_char(long long n, char conv)
 {
 	if (n >= 0 && n <= 9)
 		return ((char)(n + '0'));
@@ -28,14 +27,12 @@ char	ft_to_char(int n, char conv)
 	return (0);
 }
 
-char	*ft_from_deci(int n ,char conv)
+char	*ft_from_deci(long long n, char conv)
 {
 	char	*res;
 	int		i;
-	long nn;
 
 	i = 0;
-	nn = n;
 	res = malloc(ft_nsize(n) + 1);
 	if (n == 0)
 		res[i++] = ft_to_char(0, conv);
@@ -45,7 +42,7 @@ char	*ft_from_deci(int n ,char conv)
 		n /= 16;
 	}
 	res[i] = '\0';
-	ft_strrev(res + 2);
+	ft_strrev(res);
 	return (res);
 }
 
@@ -53,45 +50,47 @@ void	initialize(t_flags *fl)
 {
 	(*fl).sign = 0;
 	(*fl).width = 0;
-	(*fl).point = 0;
 	(*fl).prec = 0;
-	(*fl).etoile1 = 0;
-	(*fl).etoile2 = 0;
 	(*fl).zero = 0;
 }
 
-void	check_flags(char *str, t_flags *fl, char conv)
+void	check_flags2(char *str, t_flags *fl, va_list *param)
 {
-	int i;
+	if (*str == '.')
+	{
+		str++;
+		if (((*fl).prec = ft_atoi(str)))
+			str += ft_strlen(ft_itoa(ft_atoi(str)));
+		if (*str == '*')
+			(*fl).prec = va_arg(*param, int);
+	}
+}
 
-	i = 0;
-	while (str[i] == '-')
+void	check_flags(char *str, t_flags *fl, va_list *param)
+{
+	while (*str == '-')
 	{
 		(*fl).sign = 1;
-		i++;
+		str++;
 	}
-	if (str[i] == '0')
+	if (*str == '0')
 	{
 		(*fl).zero = 1;
-		i++;
+		str++;
 	}
-	if (((*fl).width = ft_atoi(str + i)))
-		i += ft_strlen(ft_itoa(ft_atoi(str + i)));
-	if (str[i] == '*')
+	if (*str == '*')
 	{
-		(*fl).etoile1 = 1;
-		i++;
+		(*fl).width = va_arg(*param, int);
+		if ((*fl).width == 0)
+			(*fl).zero = 1;
+		if ((*fl).width < 0)
+		{
+			(*fl).sign = 1;
+			(*fl).width *= -1;
+		}
+		str++;
 	}
-	if (str[i] == '.')
-	{
-		(*fl).point = 1;
-		i++;
-	}
-	if (((*fl).prec = ft_atoi(str + i)))
-		i += ft_strlen(ft_itoa(ft_atoi(str + i)));
-	if (str[i] == '*')
-	{
-		(*fl).etoile2 = 1;
-		i++;
-	}
+	else if (((*fl).width = ft_atoi(str)))
+		str += ft_strlen(ft_itoa(ft_atoi(str)));
+	check_flags2(str, fl, param);
 }

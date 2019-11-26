@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 18:56:03 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/22 23:04:19 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:38:16 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 int main()
 {
 	char	*s;
-	s = "jfherhjg";
-	int c = ft_printf("%-0*.*c",5, 9,99);
-	ft_printf("\n%d", c);
+	int		i = 555;
+	//s = "jfherhjg";
+	printf("|%30.15d|\n",i);
+	int c = ft_printf("|%30.15d|",i);
+	//ft_printf("\n%d", c);
 	return (0);
 }

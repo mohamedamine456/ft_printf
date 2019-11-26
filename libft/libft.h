@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 18:36:18 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/22 18:57:39 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:59:45 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ char	*ft_addchar(char *str, char c);
 void	ft_strrev(char *str);
 int		ft_nsize(long long n);
 int		ft_atoi(char *str);
+void	*ft_memset(void *str, int c, int n);
+void	*ft_memmove(void *dest, const void *src, int n);
 
 #endif

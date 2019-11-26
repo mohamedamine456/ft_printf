@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sint_convert.c                                  :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/19 12:48:09 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/24 15:40:52 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/11/23 21:10:23 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/11/23 21:17:39 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "convert.h"
+#include "libft.h"
 
-char	*ft_sint_convert(char *str, va_list *param)
+void	*ft_memset(void *s, int c, int n)
 {
-	char	*s;
-	int		nb;
+	int i;
 
-	nb = va_arg(*param, int);
-	s = ft_itoa(nb);
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = c;
+		i++;
+	}
 	return (s);
 }

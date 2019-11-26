@@ -6,19 +6,83 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:48:40 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/22 13:28:01 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/26 01:15:20 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "convert.h"
+#include <stdio.h>
 
 char	*ft_pointer_convert(char *str, va_list *param)
 {
 	char			*s;
-	unsigned int	nb;
+	long long		nb;
+	t_flags			flag;
 
-	nb = va_arg(*param, unsigned int);
+	s = ft_strdup("");
+	initialize(&flag);
+	check_flags(str, &flag, param);
+	nb = va_arg(*param, long long);
 	s = ft_from_deci(nb, 'x');
-	//s = ft_apply_flags(s);
+	s = apply_pointer_flags(s , flag);
 	return (s);
+}
+
+char	*neg_sign_pointer(char *s, t_flags flag, int len)
+{
+	char	*str;
+
+	str = malloc(len + 3);
+	ft_memmove(str, ft_strdup("0x"), 2);
+	ft_memset(str + 2, '0', (flag.prec > ft_strlen(s) ?
+				flag.prec - ft_strlen(s) : 0));
+	ft_memmove(str + 2 + (flag.prec > ft_strlen(s) ?
+				flag.prec - ft_strlen(s) : 0), ft_strdup(s), ft_strlen(s));
+	ft_memset(str + 2 + (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s)),
+			' ', len - 2 - (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s)));
+	str[len] = '\0';
+	return (str);
+}
+
+char	*pos_sign_pointer(char *s, t_flags flag, int len)
+{
+	char    *str;
+	int     i;
+	
+	i = 0;
+	str = malloc(len + 3);
+	ft_memset(str, ' ', (flag.prec > ft_strlen(s) ?
+				len - flag.prec : len - ft_strlen(s)) - 2);
+	i = len - (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s)) - 2;
+	ft_memmove(str + (len == ft_strlen(s) ? 0 : i), ft_strdup("0x"), 2);
+	i += 2;
+	while (i < len - ft_strlen(s))
+	{
+		str[i] = '0';
+		i++;
+	}
+	ft_memmove(str + len - ft_strlen(s) + (len ==
+				ft_strlen(s) ? 2 : 0), ft_strdup(s), ft_strlen(s));
+	str[len + 2] = '\0';
+	return (str);
+}
+
+char	*apply_pointer_flags(char *s, t_flags flag)
+{
+	char	*str;
+	int		len;
+
+	if (flag.width > flag.prec)
+		len = flag.width;
+	else
+		len = flag.prec;
+	if (ft_strlen(s) > len)
+		len = ft_strlen(s);
+	str = malloc(len + 1);
+	if (flag.sign)
+		return (neg_sign_pointer(s, flag, len));
+	else
+		return (pos_sign_pointer(s, flag, len));
+	str[len] = '\0';
+	return (str);
 }
