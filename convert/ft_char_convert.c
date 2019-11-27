@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:38:12 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:44:45 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:52:58 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	*apply_char_flags(char *s, t_flags flag)
 {
 	char	*str;
 	int		len;
+	int		i;
 
+	i = 0;
 	if (ft_strlen(s) < flag.width)
 		len = flag.width;
 	else
@@ -38,8 +40,12 @@ char	*apply_char_flags(char *s, t_flags flag)
 	str = malloc(len + 1);
 	if (flag.sign)
 	{
-		str = ft_strdup(s);
-		ft_memset(str + ft_strlen(s), ' ', len - ft_strlen(s));
+		str = ft_memmove(str, ft_strdup(s), ft_strlen(s));
+		while (i + ft_strlen(s) < len)
+		{
+			str[i + ft_strlen(s)] = ' ';
+			i++;
+		}
 	}
 	else
 	{

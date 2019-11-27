@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:46:37 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/25 22:14:50 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/26 18:14:44 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int		ft_printf_helper(const char *str, va_list *param, char **all)
 		{
 			if (*str == '%' && *(str + 1) == '%')
 				str++;
+			tmp = *all;
 			*all = ft_addchar(*all, *str);
+			free(tmp);
 		}
 		str++;
 	}

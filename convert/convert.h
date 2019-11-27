@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:43:32 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/25 18:28:18 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/26 05:50:11 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ char			*apply_char_flags(char *s, t_flags flag);
 void			check_flags(char *str, t_flags *fl, va_list *param);
 char			*apply_hexa_flags(char *s, t_flags flag);
 char			*apply_pointer_flags(char *s, t_flags flag);
+char            *apply_int_flags(char *s, t_flags flag);
 
 #endif
