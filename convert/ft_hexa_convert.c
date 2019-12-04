@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:39:48 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/26 15:42:52 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:03:57 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ char	*ft_hexa_convert(char *str, va_list *param, char conv)
 	char			*s;
 	unsigned int	nb;
 	t_flags			flag;
+	char			*tmp;
 
+	tmp = s;
 	s = ft_strdup("");
 	initialize(&flag);
 	check_flags(str, &flag, param);
 	nb = va_arg(*param, unsigned int);
 	s = ft_from_deci(nb, conv);
 	s = apply_hexa_flags(s, flag);
+	free(tmp);
 	return (s);
 }
 

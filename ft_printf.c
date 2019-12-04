@@ -6,26 +6,20 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:46:37 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/26 18:14:44 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:58:31 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf_helper(const char *str, va_list *param, char **all);
-
 int		ft_printf(const char *str, ...)
 {
 	va_list param;
 	char	*all;
-	char	*tmp;
-	char	conv;
 
 	va_start(param, str);
 	all = ft_strdup("");
-	tmp = all;
 	ft_printf_helper(str, &param, &all);
-	free(tmp);
 	va_end(param);
 	ft_putstr(all);
 	return (ft_strlen(all));

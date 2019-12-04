@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 18:36:18 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:59:45 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:57:47 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		ft_nsize(long long n);
 int		ft_atoi(char *str);
 void	*ft_memset(void *str, int c, int n);
 void	*ft_memmove(void *dest, const void *src, int n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

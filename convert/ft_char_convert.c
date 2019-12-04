@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:38:12 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/26 16:52:58 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:00:41 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ char	*ft_char_convert(char *str, va_list *param)
 {
 	char	*s;
 	t_flags	flag;
+	char	*tmp;
 
 	s = ft_strdup("");
 	initialize(&flag);
 	check_flags(str, &flag, param);
+	tmp = s;
 	s = ft_addchar(s, va_arg(*param, int));
 	s = apply_char_flags(s, flag);
+	free(tmp);
 	return (s);
 }
 
