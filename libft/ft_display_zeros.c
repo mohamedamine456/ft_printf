@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_display_zeros.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/29 13:54:26 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/07 23:28:24 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/12/05 20:06:18 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/12/06 15:58:37 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_display_zeros(int len)
 {
-	char			*str;
-	unsigned int	i;
+	int i;
 
 	i = 0;
-	if (s == NULL)
-		return (NULL);
-	if (start > (unsigned int)ft_strlen((char *)s))
-		len = 0;
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
 	while (i < len)
 	{
-		str[i] = s[start];
+		write(1, "0", 1);
 		i++;
-		start++;
 	}
-	str[i] = '\0';
-	return (str);
 }

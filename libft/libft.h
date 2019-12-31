@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 18:36:18 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/29 13:57:47 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:01:13 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include <stdlib.h>
 
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_itoa(long long n);
 int		ft_isdigit(int c);
 int		ft_isflag(int c);
+void	ft_putchar(int c);
 char	ft_isformat(char c);
 int		ft_strlen(char *str);
 void	ft_putstr(char *str);
@@ -30,5 +30,7 @@ int		ft_atoi(char *str);
 void	*ft_memset(void *str, int c, int n);
 void	*ft_memmove(void *dest, const void *src, int n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_display_spaces(int len);
+void	ft_display_zeros(int len);
 
 #endif

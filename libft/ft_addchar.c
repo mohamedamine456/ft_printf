@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 15:23:04 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/20 15:24:35 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:58:21 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ char	*ft_addchar(char *str, char c)
 	char	*s;
 	int		i;
 
-	s = malloc (ft_strlen(str) + 2);
+	s = malloc(ft_strlen(str) + 2);
 	i = 0;
-	while (str[i] != '\0')
+	if (str != 0)
 	{
-		s[i] = str[i];
-		i++;
+		while (str[i] != '\0')
+		{
+			s[i] = str[i];
+			i++;
+		}
+		s[i] = c;
 	}
-	s[i] = c;
 	s[i + 1] = '\0';
 	return (s);
 }

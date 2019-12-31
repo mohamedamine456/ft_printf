@@ -6,71 +6,85 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:39:48 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/04 17:03:57 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/20 00:22:16 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "convert.h"
 #include <stdio.h>
 
-char	*ft_hexa_convert(char *str, va_list *param, char conv)
+void	ft_hexa_convert(char *str, va_list *param, char conv, int *nb_car)
 {
 	char			*s;
 	unsigned int	nb;
 	t_flags			flag;
-	char			*tmp;
 
-	tmp = s;
-	s = ft_strdup("");
 	initialize(&flag);
 	check_flags(str, &flag, param);
 	nb = va_arg(*param, unsigned int);
 	s = ft_from_deci(nb, conv);
-	s = apply_hexa_flags(s, flag);
-	free(tmp);
-	return (s);
+	if (flag.prec == -1 && nb == 0)
+		s = ft_strdup("");
+	if (flag.prec == -1 && flag.prec_etoile &&
+			flag.width && flag.sign && nb == 0)
+		s = ft_strdup("0");
+	apply_hexa_flags(s, flag, nb_car);
+	free(s);
 }
 
-char	*neg_sign_hexa(char *s, t_flags flag, int len)
+void	neg_sign_hexa(char *s, t_flags flag, int len, int *nb_car)
 {
-	char	*str;
+	char	*zero;
+	char	*space;
 
-	str = malloc(len + 1);
-	ft_memset(str, '0', (flag.prec > ft_strlen(s) ?
+	zero = malloc((flag.prec > ft_strlen(s) ?
+				flag.prec - ft_strlen(s) : 0) + 1);
+	ft_memset(zero, '0', (flag.prec > ft_strlen(s) ?
 				flag.prec - ft_strlen(s) : 0));
-	ft_memmove(str + (flag.prec > ft_strlen(s) ?
-				flag.prec - ft_strlen(s) : 0), ft_strdup(s), ft_strlen(s));
-	ft_memset(str + (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s)),
-			' ', len - (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s)));
-	str[len] = '\0';
-	return (str);
+	zero[(flag.prec > ft_strlen(s) ? flag.prec - ft_strlen(s) : 0)] = '\0';
+	space = malloc(len - (flag.prec > ft_strlen(s) ?
+				flag.prec : ft_strlen(s)) + 1);
+	ft_memset(space, ' ', len - (flag.prec > ft_strlen(s) ?
+				flag.prec : ft_strlen(s)));
+	space[len - (flag.prec > ft_strlen(s) ?
+			flag.prec : ft_strlen(s))] = '\0';
+	ft_putstr(zero);
+	ft_putstr(s);
+	ft_putstr(space);
+	(*nb_car) += ft_strlen(s) + ft_strlen(zero) + ft_strlen(space);
+	free(space);
+	free(zero);
 }
 
-char	*pos_sign_hexa(char *s, t_flags flag, int len)
+void	pos_sign_hexa(char *s, t_flags flag, int len, int *nb_car)
 {
-	char	*str;
-	int		i;
+	char	*zero;
+	char	*space;
 
-	i = 0;
-	str = malloc(len + 1);
-	ft_memset(str, ' ', (flag.prec > ft_strlen(s) ?
+	space = malloc((flag.prec > ft_strlen(s) ?
+				len - flag.prec : len - ft_strlen(s)) + 1);
+	ft_memset(space, ' ', (flag.prec > ft_strlen(s) ?
 				len - flag.prec : len - ft_strlen(s)));
-	i = len - (flag.prec > ft_strlen(s) ? flag.prec : ft_strlen(s));
-	while (i < len - ft_strlen(s))
-	{
-		str[i] = '0';
-		i++;
-	}
-	ft_memmove(str + len - ft_strlen(s), ft_strdup(s), ft_strlen(s));
-	str[len] = '\0';
-	return (str);
+	space[(flag.prec > ft_strlen(s) ?
+			len - flag.prec : len - ft_strlen(s))] = '\0';
+	zero = malloc(len - ft_strlen(s) - ft_strlen(space) + 1);
+	ft_memset(zero, '0', len - ft_strlen(s) - ft_strlen(space));
+	zero[len - ft_strlen(s) - ft_strlen(space)] = '\0';
+	ft_putstr(space);
+	ft_putstr(zero);
+	ft_putstr(s);
+	(*nb_car) += ft_strlen(s) + ft_strlen(zero) + ft_strlen(space);
+	free(space);
+	free(zero);
 }
 
-char	*apply_hexa_flags(char *s, t_flags flag)
+void	apply_hexa_flags(char *s, t_flags flag, int *nb_car)
 {
 	int		len;
 
-	if (!flag.prec && flag.zero && !flag.sign)
+	if ((!flag.prec || flag.prec_etoile) && flag.zero && !flag.sign)
+		flag.prec = flag.width;
+	if (flag.prec < -1 && flag.zero && flag.width > flag.prec && !flag.sign)
 		flag.prec = flag.width;
 	if (flag.width > flag.prec)
 		len = flag.width;
@@ -79,7 +93,7 @@ char	*apply_hexa_flags(char *s, t_flags flag)
 	if (ft_strlen(s) > len)
 		len = ft_strlen(s);
 	if (flag.sign)
-		return (neg_sign_hexa(s, flag, len));
+		neg_sign_hexa(s, flag, len, nb_car);
 	else
-		return (pos_sign_hexa(s, flag, len));
+		pos_sign_hexa(s, flag, len, nb_car);
 }

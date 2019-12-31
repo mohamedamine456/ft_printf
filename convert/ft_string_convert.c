@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:14:24 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/04 17:06:36 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:26:32 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,37 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-char	*ft_string_convert(char *str, va_list *param)
+void	ft_string_convert(char *str, va_list *param, int *nb_car)
 {
 	char	*s;
 	t_flags	flag;
-	char	*tmp;
 
-	tmp = s;
-	s = ft_strdup("");
 	initialize(&flag);
 	check_flags(str, &flag, param);
 	s = va_arg(*param, char *);
 	if (flag.prec == -1)
-		s = ft_strdup("");
+		s = "";
 	if (s == NULL)
-		s = ft_strdup("(null)");
+		s = "(null)";
 	if (flag.prec <= ft_strlen(s) && flag.prec > 0)
 		s = ft_substr(s, 0, flag.prec);
-	s = apply_string_flags(s, flag);
-	free(tmp);
-	return (s);
+	apply_string_flags(s, flag, nb_car);
 }
 
-char	*neg_sign_string(char *s, int len)
+void	neg_sign_string(char *s, int len, int *nb_car)
 {
 	char	*str;
 
 	str = malloc(len + 1);
-	ft_memmove(str, ft_strdup(s), ft_strlen(s));
+	ft_memmove(str, s, ft_strlen(s));
 	ft_memset(str + ft_strlen(s), ' ', len - ft_strlen(s));
 	str[len] = '\0';
-	return (str);
+	ft_putstr(str);
+	(*nb_car) += ft_strlen(str);
+	free(str);
 }
 
-char	*pos_sign_string(char *s, int len)
+void	pos_sign_string(char *s, int len, int *nb_car)
 {
 	char	*str;
 	int		i;
@@ -55,12 +52,14 @@ char	*pos_sign_string(char *s, int len)
 	i = 0;
 	str = malloc(len + 1);
 	ft_memset(str, ' ', len - ft_strlen(s));
-	ft_memmove(str + len - ft_strlen(s), ft_strdup(s), ft_strlen(s));
+	ft_memmove(str + len - ft_strlen(s), s, ft_strlen(s));
 	str[len] = '\0';
-	return (str);
+	ft_putstr(str);
+	(*nb_car) += ft_strlen(str);
+	free(str);
 }
 
-char	*apply_string_flags(char *s, t_flags flag)
+void	apply_string_flags(char *s, t_flags flag, int *nb_car)
 {
 	int		len;
 
@@ -69,7 +68,7 @@ char	*apply_string_flags(char *s, t_flags flag)
 	else
 		len = flag.width;
 	if (flag.sign)
-		return (neg_sign_string(s, len));
+		neg_sign_string(s, len, nb_car);
 	else
-		return (pos_sign_string(s, len));
+		pos_sign_string(s, len, nb_car);
 }

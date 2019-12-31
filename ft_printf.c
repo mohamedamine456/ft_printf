@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:46:37 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/04 16:58:31 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:33:42 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,29 @@
 int		ft_printf(const char *str, ...)
 {
 	va_list param;
-	char	*all;
+	int		nb_car;
 
+	nb_car = 0;
 	va_start(param, str);
-	all = ft_strdup("");
-	ft_printf_helper(str, &param, &all);
+	ft_printf_helper(str, &param, &nb_car);
 	va_end(param);
-	ft_putstr(all);
-	return (ft_strlen(all));
+	return (nb_car);
 }
 
-int		ft_printf_helper(const char *str, va_list *param, char **all)
+int		ft_printf_helper(const char *str, va_list *param, int *nb_car)
 {
-	char	*s;
 	char	conv;
-	char	*tmp;
 
 	while (*str)
 	{
 		if (*str == '%' && (conv = ft_isconvertion(str + 1)))
-		{
-			tmp = s;
-			s = ft_convert(&str, param, conv);
-			tmp = *all;
-			*all = ft_strjoin(*all, s);
-			free(tmp);
-		}
+			ft_convert(&str, param, conv, nb_car);
 		else
 		{
-			if (*str == '%' && *(str + 1) == '%')
-				str++;
-			tmp = *all;
-			*all = ft_addchar(*all, *str);
-			free(tmp);
+			ft_putchar(*str);
+			(*nb_car)++;
 		}
 		str++;
 	}
-	return (ft_strlen(*all));
+	return (*nb_car);
 }

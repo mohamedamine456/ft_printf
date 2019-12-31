@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:46:41 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/02 15:51:40 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:36:16 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 char	ft_isconvertion(const char *str)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;
 
 	i = 0;
 	c = 0;
@@ -39,7 +39,7 @@ char	ft_isconvertion(const char *str)
 	return (c);
 }
 
-char	*ft_convert(const char **str, va_list *param, char conv)
+void	ft_convert(const char **str, va_list *param, char conv, int *nb_car)
 {
 	char	*s;
 
@@ -48,18 +48,19 @@ char	*ft_convert(const char **str, va_list *param, char conv)
 	while (**str != conv)
 		(*str)++;
 	if (conv == 'd')
-		return (ft_int_convert(s, param));
+		ft_int_convert(s, param, nb_car);
 	if (conv == 'c')
-		return (ft_char_convert(s, param));
+		ft_char_convert(s, param, nb_car);
 	if (conv == 's')
-		return (ft_string_convert(s, param));
+		ft_string_convert(s, param, nb_car);
 	if (conv == 'i')
-		return (ft_sint_convert(s, param));
+		ft_int_convert(s, param, nb_car);
 	if (conv == 'u')
-		return (ft_unsint_convert(s, param));
+		ft_unsint_convert(s, param, nb_car);
 	if (conv == 'p')
-		return (ft_pointer_convert(s, param));
+		ft_pointer_convert(s, param, nb_car);
 	if (conv == 'x' || conv == 'X')
-		return (ft_hexa_convert(s, param, conv));
-	return (0);
+		ft_hexa_convert(s, param, conv, nb_car);
+	if (conv == '%')
+		ft_percent_convert(s, param, nb_car);
 }

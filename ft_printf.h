@@ -6,7 +6,7 @@
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:02:21 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/11/29 22:49:41 by mlachheb         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:57:30 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int		ft_printf(const char *str, ...);
 char	ft_isconvertion(const char *str);
-char	*ft_convert(const char **str, va_list *param, char conv);
-int     ft_printf_helper(const char *str, va_list *param, char **all);
+void	ft_convert(const char **str, va_list *param, char conv, int	*nb_car);
+int		ft_printf_helper(const char *str, va_list *param, int *nb_car);
 
 #endif

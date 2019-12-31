@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlachheb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 18:56:03 by mlachheb          #+#    #+#             */
-/*   Updated: 2019/12/04 16:36:14 by mlachheb         ###   ########.fr       */
+/*   Created: 2019/12/19 14:30:54 by mlachheb          #+#    #+#             */
+/*   Updated: 2019/12/19 23:58:03 by mlachheb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int main()
 	char	*s;
 	int		i = 23456789;
 	s = "jfherhjg";
-	int d = printf("|%1.12d|",-49566846);
+	int d = printf("|%-10.3x|",4);
 	printf("\n%d\n", d);
-	int c = ft_printf("|%1.12d|",-49566846);
+	int c = ft_printf("|%-10.3x|",4);
 	ft_printf("\n%d", c);
 	return (0);
 }
